@@ -6,13 +6,22 @@
     [
       ./hardware-configuration.nix
       inputs.home-manager.nixosModules.default
-      ../../modules/bootloader/grub.nix
+      # ../../modules/bootloader/systemd-boot.nix
       ../../modules/network/bluetooth.nix
       ../../modules/dev-stack/dev-stack.nix
       ../../modules/audio/audio.nix
       ../../modules/graphics/compositor/wayland.nix
       ../../modules/graphics/desktop/plasma.nix
     ];
+
+    boot.loader.grub = {
+  enable = true;  # Enable GRUB
+  version = 2;    # Use GRUB 2
+  devices = [ "/dev/nvme0n1" ]; # Replace with your target disk (e.g., "/dev/sda"). Do NOT include partitions.
+  enableCryptodisk = true;  # Enable support for encrypted disks
+};
+
+
 
 
   networking.hostName = "nixos"; # Define your hostname.
